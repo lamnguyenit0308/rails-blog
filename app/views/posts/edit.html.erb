@@ -1,0 +1,30 @@
+<%= form_with model: @post do |form| %>
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+    <% @post.errors.full_messages_for(:title).each do |message| %>
+      <small class="text-danger"><%= message %></small>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.cktext_area :content, class: "form-control", rows: 10, cols: 100 %>
+    <% @post.errors.full_messages_for(:content).each do |message| %>
+      <small class="text-danger"><%= message %></small><br>
+    <% end %>
+  </div>
+  <div class="form-check">
+    <%= form.check_box  :status, class: "form-check-input" %>
+    <%= form.label "Pushlish", class: "form-check-label" %>
+    <% @post.errors.full_messages_for(:status).each do |message| %>
+      <small class="text-danger"><%= message %></small><br>
+    <% end %>
+  </div>
+  <div class="form-group"></div>
+    <%= form.label :cover_photo_link %>
+    <%= image_tag(@post.cover_photo_link, width: 50) if @post.cover_photo_link.present? %>
+  </div>
+  <div class="mt-3">
+    <%= form.submit "Update post", class: "btn btn-primary" %>
+  </div>
+<% end %>

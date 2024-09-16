@@ -1,0 +1,22 @@
+<%= link_to "Create new post", new_post_path, class: "btn btn-primary" %>
+
+<% @posts.each do |post| %>
+<a href="<%= post_path(post) %>">
+  <div class="card post-single mt-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <div class="post-cover">
+          <%= image_tag(post.cover_photo_link, width: "100%", class: "img-fluid rounded-start") if post.cover_photo_link.present? %>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-text post-title">
+            <%= post.title %>
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+<% end %>

@@ -1,0 +1,71 @@
+<%= form_with model: @post do |form| %>
+  
+  <h2>New post</h2>
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+    <% @post.errors.full_messages_for(:title).each do |message| %>
+      <small class="text-danger"><%= message %></small>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.cktext_area :content, class: "form-control", rows: 10, cols: 100 %>
+    <% @post.errors.full_messages_for(:content).each do |message| %>
+      <small class="text-danger"><%= message %></small><br>
+    <% end %>
+  </div>
+  <div class="form-check">
+    <%= form.check_box  :status, class: "form-check-input" %>
+    <%= form.label "Pushlish", class: "form-check-label" %>
+    <% @post.errors.full_messages_for(:status).each do |message| %>
+      <small class="text-danger"><%= message %></small><br>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= form.label :cover_photo_link %>
+    <%= form.file_field :cover_photo_link %>
+    <div class="preview-cover">
+      <img src="" alt="cover photo" id="preview-image" width="100%" height="100%">
+    </div>
+    <% @post.errors.full_messages_for(:cover_photo_link).each do |message| %>
+      <small class="text-danger"><%= message %></small><br>
+    <% end %>
+    <div class="gr-btn-preview mt-2">
+      <button type="button" class="btn btn-success btn-select-cover-photo">Select image</button>
+      <button type="button" class="btn btn-success btn-upload-cover-photo">Upload</button>
+      <button type="button" class="btn btn-danger btn-delete-cover-photo">Remove image</button>
+    </div>
+  </div>
+  <div class="mt-3">
+    <%= form.submit "Create post", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+  $(function() {
+    //Click upload
+    $('.btn-select-cover-photo').on('click', function() {
+      $('#post_cover_photo_link').click()
+    })
+
+    //Onchange file
+    $('#post_cover_photo_link').change(function (event) {
+      const files = event.target.files
+      if (files.length) {
+        const file = files[0]
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          $('#preview-image').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    })
+
+    //Delete file
+    $('.btn-delete-cover-photo').on('click', function() {
+      $('#preview-image').attr('src', "");
+      $('#post_cover_photo_link').val("")
+    })
+  })
+</script>

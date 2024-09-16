@@ -1,0 +1,4 @@
+<h1>Posts#show</h1>
+<%= @post.title %>
+<%= raw @post.content %>
+<%= image_tag(@post.cover_photo_link, width: 50) if @post.cover_photo_link.present? %>
