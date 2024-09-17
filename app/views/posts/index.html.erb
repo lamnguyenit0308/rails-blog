@@ -1,7 +1,6 @@
-<%= link_to "Create new post", new_post_path, class: "btn btn-primary" %>
+<%= link_to "Create new post", new_post_path, class: "btn btn-outline-primary" %>
 
 <% @posts.each do |post| %>
-<a href="<%= post_path(post) %>">
   <div class="card post-single mt-3">
     <div class="row g-0">
       <div class="col-md-4">
@@ -9,14 +8,36 @@
           <%= image_tag(post.cover_photo_link, width: "100%", class: "img-fluid rounded-start") if post.cover_photo_link.present? %>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 post-content">
         <div class="card-body">
           <h3 class="card-text post-title">
             <%= post.title %>
           </h3>
+          <p><strong>Created at:</strong> <%= post.created_at.strftime("%d/%m/%Y") %></p>
+          <p><strong>Creator:</strong> <%= post.users.email %></p>
+          <a href="<%= post_path(post) %>" type="button" class="btn btn-outline-info">Xem chi tiết</a>
         </div>
       </div>
     </div>
   </div>
-</a>
 <% end %>
+
+<script>
+  var notice = "<%= notice %>"
+  if (notice) {
+    Toastify({
+      text: notice,
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top", 
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#CD853F",
+      },
+      onClick: function(){} // Callback after click
+    }).showToast();
+  }
+  
+</script>

@@ -33,7 +33,6 @@
     <% end %>
     <div class="gr-btn-preview mt-2">
       <button type="button" class="btn btn-success btn-select-cover-photo">Select image</button>
-      <button type="button" class="btn btn-success btn-upload-cover-photo">Upload</button>
       <button type="button" class="btn btn-danger btn-delete-cover-photo">Remove image</button>
     </div>
   </div>
@@ -46,6 +45,7 @@
   $(function() {
     //Click upload
     $('.btn-select-cover-photo').on('click', function() {
+      console.log(111)
       $('#post_cover_photo_link').click()
     })
 
@@ -68,4 +68,21 @@
       $('#post_cover_photo_link').val("")
     })
   })
+
+  var notice = "<%= notice %>"
+  if (notice) {
+    Toastify({
+      text: notice,
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top", 
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#CD853F",
+      },
+      onClick: function(){} // Callback after click
+    }).showToast();
+  }
 </script>

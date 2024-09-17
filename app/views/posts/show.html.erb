@@ -1,4 +1,43 @@
-<h1>Posts#show</h1>
-<%= @post.title %>
-<%= raw @post.content %>
-<%= image_tag(@post.cover_photo_link, width: 50) if @post.cover_photo_link.present? %>
+<div class="post-show">
+  <div class="post-info d-flex justify-content-between" style="gap: 20px;">
+    <div class="d-flex" style="gap: 20px;">
+      <p><strong>Created at:</strong> <%= @post.created_at.strftime("%d/%m/%Y") %></p>
+      <p><strong>Creator:</strong> <%= @post.users.email %></p>
+    </div>
+    <div class="post-action">
+      <a href="<%= edit_post_path(@post) %>" class="btn btn-outline-secondary btn-sm">Edit</a>
+      <%= link_to "Delete", post_path(@post), method: :delete, data: {
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure delete this post?"
+      }, class: "btn btn-outline-danger btn-sm" %>
+    </div>
+  </div>
+  <div class="title">
+    <h1>
+      <%= @post.title %>
+    </h1>
+  </div>
+  <div class="content">
+    <%= raw @post.content %>
+  </div>
+</div>
+
+<script>
+  var notice = "<%= flash[:notice] %>"
+  if (notice) {
+    Toastify({
+      text: notice,
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top", 
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#CD853F",
+      },
+      onClick: function(){} // Callback after click
+    }).showToast();
+  }
+  
+</script>
