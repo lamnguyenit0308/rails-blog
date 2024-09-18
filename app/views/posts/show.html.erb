@@ -2,7 +2,7 @@
   <div class="post-info d-flex justify-content-between" style="gap: 20px;">
     <div class="d-flex" style="gap: 20px;">
       <p><strong>Created at:</strong> <%= @post.created_at.strftime("%d/%m/%Y") %></p>
-      <p><strong>Creator:</strong> <%= @post.users.email %></p>
+      <p><strong>Creator:</strong> <%= @post.user.email %></p>
     </div>
     <div class="post-action">
       <a href="<%= edit_post_path(@post) %>" class="btn btn-outline-secondary btn-sm">Edit</a>
@@ -21,23 +21,3 @@
     <%= raw @post.content %>
   </div>
 </div>
-
-<script>
-  var notice = "<%= flash[:notice] %>"
-  if (notice) {
-    Toastify({
-      text: notice,
-      duration: 3000,
-      newWindow: true,
-      close: true,
-      gravity: "top", 
-      position: "right",
-      stopOnFocus: true,
-      style: {
-        background: "#CD853F",
-      },
-      onClick: function(){} // Callback after click
-    }).showToast();
-  }
-  
-</script>

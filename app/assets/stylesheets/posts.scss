@@ -1,28 +1,35 @@
 //Font
-html, body, * {
+html,
+body,
+* {
   font-family: "DM Sans", sans-serif;
 }
 
 //Header
 .navbar {
   padding: 0 10px 0 10px;
-  background-color: #ff4500;
+  background-color: #FF8C00;
+  height: 50px;
 }
 
 //Main
 #main {
   min-height: 100vh;
   margin-top: 70px;
+
   label {
     font-weight: 500;
   }
+
   a {
     text-decoration: none;
     color: black;
   }
+
   #post_cover_photo_link {
     display: none;
   }
+
   .preview-cover {
     width: 300px;
     height: 300px;
@@ -31,23 +38,34 @@ html, body, * {
 
   .post-single {
     width: 100%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+
     .post-cover {
       height: 300px;
+
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
     }
+
     &:nth-child(even) {
       .post-content {
         background-color: #FFDAB9;
       }
     }
+
     &:nth-child(odd) {
       .post-content {
         background-color: #FFF8DC;
       }
     }
   }
+}
+
+//Footer
+.footer {
+  background-color: #FF8C00;
+  height: 50px;
 }

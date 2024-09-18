@@ -14,30 +14,10 @@
             <%= post.title %>
           </h3>
           <p><strong>Created at:</strong> <%= post.created_at.strftime("%d/%m/%Y") %></p>
-          <p><strong>Creator:</strong> <%= post.users.email %></p>
+          <p><strong>Creator:</strong> <%= post.user.email %></p>
           <a href="<%= post_path(post) %>" type="button" class="btn btn-outline-info">Xem chi tiết</a>
         </div>
       </div>
     </div>
   </div>
 <% end %>
-
-<script>
-  var notice = "<%= notice %>"
-  if (notice) {
-    Toastify({
-      text: notice,
-      duration: 3000,
-      newWindow: true,
-      close: true,
-      gravity: "top", 
-      position: "right",
-      stopOnFocus: true,
-      style: {
-        background: "#CD853F",
-      },
-      onClick: function(){} // Callback after click
-    }).showToast();
-  }
-  
-</script>
