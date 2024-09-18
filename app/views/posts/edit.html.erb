@@ -6,21 +6,21 @@
       <small class="text-danger"><%= message %></small>
     <% end %>
   </div>
-  <div class="form-group">
+  <div class="form-group mt-3">
     <%= form.label :content %>
     <%= form.cktext_area :content, class: "form-control", rows: 10, cols: 100 %>
     <% @post.errors.full_messages_for(:content).each do |message| %>
       <small class="text-danger"><%= message %></small><br>
     <% end %>
   </div>
-  <div class="form-check">
-    <%= form.check_box  :status, class: "form-check-input" %>
-    <%= form.label "Pushlish", class: "form-check-label" %>
+  <div class="form-group mt-3">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select([['Draft', 'draft'], ['Published', 'published']], selected: @post.status == 'published' ? 'published' : 'draft'), {}, { class: 'form-select' } %>
     <% @post.errors.full_messages_for(:status).each do |message| %>
       <small class="text-danger"><%= message %></small><br>
     <% end %>
   </div>
-  <div class="form-group">
+  <div class="form-group mt-3">
     <%= form.label :cover_photo_link %>
     <%= form.file_field :cover_photo_link %>
     <div class="preview-cover">
@@ -37,49 +37,4 @@
     <%= form.submit "Update post", class: "btn btn-primary" %>
   </div>
 <% end %>
-
-<script>
-  $(function() {
-    //Click upload
-    $('.btn-select-cover-photo').on('click', function() {
-      console.log(111)
-      $('#post_cover_photo_link').click()
-    })
-
-    //Onchange file
-    $('#post_cover_photo_link').change(function (event) {
-      const files = event.target.files
-      if (files.length) {
-        const file = files[0]
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          $('#preview-image').attr('src', e.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    })
-
-    //Delete file
-    $('.btn-delete-cover-photo').on('click', function() {
-      $('#preview-image').attr('src', "");
-      $('#post_cover_photo_link').val("")
-    })
-  })
-
-  var notice = "<%= flash[:notice] %>"
-  if (notice) {
-    Toastify({
-      text: notice,
-      duration: 3000,
-      newWindow: true,
-      close: true,
-      gravity: "top", 
-      position: "right",
-      stopOnFocus: true,
-      style: {
-        background: "#CD853F",
-      },
-      onClick: function(){} // Callback after click
-    }).showToast();
-  }
-</script>
+<%= render "posts/share/js" %>
