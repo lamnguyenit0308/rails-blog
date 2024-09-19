@@ -1,9 +1,11 @@
 <!-- Image and text -->
 <div class="container-fluid">
   <nav class="navbar navbar-light fixed-top">
-    <a class="navbar-brand" href="<%= root_path %>">
-      <h4 class="my-0">Blogger</h4>
-    </a>
+    <div class="d-flex">
+      <a class="navbar-brand" href="<%= root_path %>">
+        <h4 class="my-0">Blogger</h4>
+      </a>
+    </div>
     <div>
       <div class="dropdown">
         <% if user_signed_in? %>

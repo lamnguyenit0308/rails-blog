@@ -8,8 +8,8 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
 
   def index
-    puts session
-    @posts = Post.published_or_authored_by(current_user)
+    @q = Post.published_or_authored_by(current_user).ransack(params[:q])
+    @posts =  @q.result(distinct: true)
   end
 
   def show

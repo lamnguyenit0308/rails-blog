@@ -21,4 +21,12 @@ class Post < ApplicationRecord
       errors.add(:cover_photo_link, "must be a JPEG or PNG file")
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "content", "title" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "cover_photo_link_attachment", "cover_photo_link_blob", "user" ]
+  end
 end
