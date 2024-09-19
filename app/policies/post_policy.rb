@@ -1,8 +1,17 @@
 class PostPolicy < ApplicationPolicy
   def destroy?
-    record.user == user
+    check_author
   end
+
   def edit?
-    record.user == user
+    check_author
+  end
+
+  def update?
+    check_author
+  end
+
+  def check_author
+    !user.nil? && record.author_id == user.id
   end
 end

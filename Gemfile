@@ -8,8 +8,6 @@ gem "mini_magick"
 gem "carrierwave"
 gem "tinymce-rails"
 gem "pundit"
-gem "pry"
-gem "bullet"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
@@ -59,6 +57,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "pry"
+  gem "bullet"
 end
 
 group :test do

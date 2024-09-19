@@ -1,11 +1,15 @@
 class PostsController < ApplicationController
   layout "post"
-  include Pundit
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   before_action :set_post, only: %i[show edit update destroy]
+  before_action :authorize_post, only: [ :edit, :update, :destroy ]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
+
   def index
     puts session
-    @posts = Post.published.or(Post.where(author_id: current_user.id)).includes([ :user ]).includes([ :cover_photo_link_attachment ])
+    @posts = Post.published_or_authored_by(current_user)
   end
 
   def show
@@ -29,7 +33,6 @@ class PostsController < ApplicationController
   end
 
   def edit
-    authorize @post
   end
 
   def update
@@ -47,7 +50,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    authorize @post
     @post.destroy
     if @post.destroy
       flash[:notice] = "You deleted post !"
@@ -72,8 +74,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :content, :status, :cover_photo_link)
   end
 
-  def user_not_authorized
-    flash[:warning] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || root_path)
+  def authorize_post
+    authorize @post
   end
 end

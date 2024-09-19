@@ -15,7 +15,7 @@
   </div>
   <div class="form-group mt-3">
     <%= form.label :status %>
-    <%= form.select :status, options_for_select([['Draft', 'draft'], ['Published', 'published']], selected: @post.status == 'published' ? 'published' : 'draft'), {}, { class: 'form-select' } %>
+    <%= form.select :status, options_for_select(Post.statuses.map { |key, value| [key.humanize, key] }, form.object.status), {}, { class: "form-select" } %>
     <% @post.errors.full_messages_for(:status).each do |message| %>
       <small class="text-danger"><%= message %></small><br>
     <% end %>
@@ -24,7 +24,11 @@
     <%= form.label :cover_photo_link %>
     <%= form.file_field :cover_photo_link %>
     <div class="preview-cover">
-      <img src="<%=  @post.cover_photo_link.attached? ? rails_blob_path(@post.cover_photo_link) : '' %>" alt="cover photo" id="preview-image" width="100%" height="100%">
+      <% if @post.cover_photo_link.present? %>
+        <%= image_tag(@post.cover_photo_link, alt: "cover photo", id: "preview-image", style: "width: 100%; height: 100%") %>
+      <% else %>
+        <%= image_tag("", alt: "cover photo", id: "preview-image", style: "width: 100%; height: 100%") %>
+      <% end %>
     </div>
     <% @post.errors.full_messages_for(:cover_photo_link).each do |message| %>
       <small class="text-danger"><%= message %></small><br>
