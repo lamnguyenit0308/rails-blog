@@ -82,19 +82,19 @@ Rails.application.configure do
   # mailer
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: "085bbb2ccee8bc",
-    password: "e4a985f93c8219",
-    address: "sandbox.smtp.mailtrap.io",
-    host: "sandbox.smtp.mailtrap.io",
-    port: "2525",
+    user_name: "yanbimmm@gmail.com",
+    password: "gisu tjdp qspo yumc",
+    address: "smtp.gmail.com",
+    host: "smtp.gmail.como",
+    port: "587",
     authentication: :login
   }
 
   # bullet
   config.after_initialize do
-  Bullet.enable = true
-  Bullet.bullet_logger = true
-  Bullet.raise = true # raise an error if n+1 query occurs
-  Bullet.unused_eager_loading_enable = false
-end
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.raise = true # raise an error if n+1 query occurs
+    Bullet.unused_eager_loading_enable = false
+  end
 end

@@ -26,6 +26,21 @@ body,
     color: black;
   }
 
+  .head-page {
+    position: fixed;
+    top:50px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    padding: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .show-all-post {
+    margin-top: 120px;
+  }
+
   #post_cover_photo_link {
     display: none;
   }
@@ -33,7 +48,8 @@ body,
   .preview-cover {
     width: 300px;
     height: 300px;
-    border: solid 1px;
+    border: solid 1px gray;
+    border-radius: 8px;
   }
 
   .post-single {
