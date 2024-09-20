@@ -82,12 +82,12 @@ Rails.application.configure do
   # mailer
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: "yanbimmm@gmail.com",
-    password: "gisu tjdp qspo yumc",
-    address: "smtp.gmail.com",
-    host: "smtp.gmail.como",
-    port: "587",
-    authentication: :login
+    user_name: ENV["MAIL_USER_NAME"],
+    password: ENV["MAIL_PASSWORD"],
+    address: ENV["MAIL_HOST"],
+    host: ENV["MAIL_ADDRESS"],
+    port: ENV["MAIL_PORT"],
+    authentication: ENV["MAIL_AUTHEN"]
   }
 
   # bullet

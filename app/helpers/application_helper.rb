@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def toastify_flash
     flash.each_with_object([]) do |(type, message), flash_messages|
       flash_messages << "Toastify({

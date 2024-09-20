@@ -12,6 +12,6 @@ class PostPolicy < ApplicationPolicy
   end
 
   def check_author
-    !user.nil? && record.author_id == user.id
+    user.present? && record.author_id == user.id
   end
 end

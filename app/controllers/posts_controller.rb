@@ -2,14 +2,15 @@ class PostsController < ApplicationController
   layout "post"
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pagy::OverflowError, with: :overflow_page
 
   before_action :set_post, only: %i[show edit update destroy]
-  before_action :authorize_post, only: [ :edit, :update, :destroy ]
-  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :authorize_post, only: %i[ edit update destroy ]
+  skip_before_action :authenticate_user!, only: %i[ index show ]
 
   def index
     @q = Post.published_or_authored_by(current_user).ransack(params[:q])
-    @posts =  @q.result(distinct: true)
+    @pagy, @posts = pagy(@q.result())
   end
 
   def show
@@ -36,10 +37,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if post_params[:cover_photo_link].nil?
-      @post.cover_photo_link.purge
-    end
-    post_params[:status] = post_params[:status].to_i
+    @post.cover_photo_link.purge if post_params[:cover_photo_link].nil?
     if @post.update(post_params)
       flash[:notice] = "You updated post !"
       redirect_to @post
@@ -72,9 +70,5 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content, :status, :cover_photo_link)
-  end
-
-  def authorize_post
-    authorize @post
   end
 end
