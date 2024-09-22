@@ -87,7 +87,7 @@ Rails.application.configure do
     address: ENV["MAIL_HOST"],
     host: ENV["MAIL_ADDRESS"],
     port: ENV["MAIL_PORT"],
-    authentication: ENV["MAIL_AUTHEN"]
+    authentication: :login
   }
 
   # bullet
