@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from Pagy::OverflowError, with: :overflow_page
 
-  before_action :set_post, only: %i[show edit update destroy]
+  before_action :set_post, only: %i[edit update destroy]
   before_action :authorize_post, only: %i[ edit update destroy ]
   skip_before_action :authenticate_user!, only: %i[ index show ]
 
@@ -14,6 +14,8 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.includes(comments: [ :user, :replies ]).find_by(id: params[:id])
+    @pagy, @comments = pagy(@post.comments, limit: 10)
   end
 
   def new

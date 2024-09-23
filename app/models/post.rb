@@ -3,12 +3,13 @@ class Post < ApplicationRecord
 
   belongs_to :user, class_name: "User", foreign_key: "author_id"
   has_one_attached :cover_photo_link
+  has_many :comments, dependent: :destroy
 
   scope :published_or_authored_by, ->(user) {
     if user
       published.or(where(author_id: user.id)).includes(:user, :cover_photo_link_attachment)
     else
-      published.includes(:user, :cover_photo_link_attachment)
+      published.includes(:user, :cover_photo_link_attachment, :comments)
     end
   }
 
