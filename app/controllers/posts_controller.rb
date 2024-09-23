@@ -15,7 +15,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes(comments: [ :user, :replies ]).find_by(id: params[:id])
-    @pagy, @comments = pagy(@post.comments, limit: 10)
+    @pagy, @comments = pagy(@post.comments.includes(replies: :user).where(parent_id: nil))
   end
 
   def new

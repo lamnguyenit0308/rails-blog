@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     authorize @post
   end
 
+  def authorize_user_comment
+    authorize @comment
+  end
+
   def overflow_page
     redirect_to root_path
   end
