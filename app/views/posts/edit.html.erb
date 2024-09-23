@@ -6,25 +6,39 @@
       <small class="text-danger"><%= message %></small>
     <% end %>
   </div>
-  <div class="form-group">
+  <div class="form-group mt-3">
     <%= form.label :content %>
     <%= form.cktext_area :content, class: "form-control", rows: 10, cols: 100 %>
     <% @post.errors.full_messages_for(:content).each do |message| %>
       <small class="text-danger"><%= message %></small><br>
     <% end %>
   </div>
-  <div class="form-check">
-    <%= form.check_box  :status, class: "form-check-input" %>
-    <%= form.label "Pushlish", class: "form-check-label" %>
+  <div class="form-group mt-3">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(Post.statuses.map { |key, value| [key.humanize, key] }, form.object.status), {}, { class: "form-select" } %>
     <% @post.errors.full_messages_for(:status).each do |message| %>
       <small class="text-danger"><%= message %></small><br>
     <% end %>
   </div>
-  <div class="form-group"></div>
+  <div class="form-group mt-3">
     <%= form.label :cover_photo_link %>
-    <%= image_tag(@post.cover_photo_link, width: 50) if @post.cover_photo_link.present? %>
+    <%= form.file_field :cover_photo_link %>
+    <div class="preview-cover">
+      <% if @post.cover_photo_link.present? %>
+        <%= image_tag(@post.cover_photo_link, alt: "cover photo", id: "preview-image", style: "width: 100%; height: 100%") %>
+      <% else %>
+        <%= image_tag("", alt: "cover photo", id: "preview-image", style: "width: 100%; height: 100%") %>
+      <% end %>
+    </div>
+    <% @post.errors.full_messages_for(:cover_photo_link).each do |message| %>
+      <small class="text-danger"><%= message %></small><br>
+    <% end %>
+    <div class="gr-btn-preview mt-2">
+      <button type="button" class="btn btn-success btn-select-cover-photo">Select image</button>
+    </div>
   </div>
   <div class="mt-3">
     <%= form.submit "Update post", class: "btn btn-primary" %>
   </div>
 <% end %>
+<%= render "posts/share/js" %>

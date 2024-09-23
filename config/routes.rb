@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  mount Ckeditor::Engine => '/ckeditor'
-  resources :posts
+  mount Ckeditor::Engine => "/ckeditor"
+  resources :posts do
+    resources :comments do
+      resources :replies, only: [ :create ]
+    end
+  end
   devise_for :users
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

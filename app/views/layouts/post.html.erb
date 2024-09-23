@@ -12,17 +12,32 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+    
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag 'posts', media: 'all' %>
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag(Ckeditor.cdn_url) %>
     <%= javascript_include_tag('lib/jquery.js') %>
+    <%= javascript_include_tag('https://cdn.jsdelivr.net/npm/toastify-js') %>
   </head>
 
   <body>
+    <script>
+      <%= toastify_flash %>
+    </script>
     <%= render 'layouts/header' %>
     <div id="main" class="container">
-      <%= yield %>
+      <div class="row" >
+        <div class="col-md-10 col-12 offset-md-1" >
+          <%= yield %>
+        </div>
+      </div>
     </div>
     <%= render 'layouts/footer' %>
   </body>
