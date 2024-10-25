@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "devise", "~> 4.1"
-gem "pg", "~> 1.5", ">= 1.5.4"
+gem "pg", "~> 1.5"
 gem "sassc-rails"
 gem "ckeditor"
 gem "mini_magick"
